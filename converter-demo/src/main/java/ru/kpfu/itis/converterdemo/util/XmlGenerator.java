@@ -1,7 +1,6 @@
 package ru.kpfu.itis.converterdemo.util;
 
 import ru.kpfu.itis.converterdemo.entity.*;
-import ru.kpfu.itis.converterdemo.util.DataCreator;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -17,7 +16,7 @@ public class XmlGenerator {
 
         DataCreator dataCreator = new DataCreator();
 
-        marshallerObj.marshal(dataCreator.generateData(), new FileOutputStream("pdf.xml"));
+        marshallerObj.marshal(dataCreator.generateData(), new FileOutputStream("examples/pdf.xml"));
 
     }
 }

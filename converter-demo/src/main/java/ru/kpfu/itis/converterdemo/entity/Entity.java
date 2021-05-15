@@ -5,9 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.Valid;
+import javax.validation.constraints.PastOrPresent;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import java.io.Serializable;
 import java.util.Date;
 
 
@@ -16,10 +17,14 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Entity{
-    private Created formed;
-    private Created formalized;
-    private Created credited;
+public class Entity {
+    @PastOrPresent(message = "not correct date")
+    private Date formed;
+    @PastOrPresent(message = "not correct date")
+    private Date formalized;
+    @PastOrPresent(message = "not correct date")
+    private Date credited;
+    @Valid
     private Comment comment;
     private Employee employee;
     private String ipAddress;
