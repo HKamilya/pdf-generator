@@ -13,10 +13,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 @NoArgsConstructor
 @Builder
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Header {
-    private Institute institute;
-    private String login;
-    private int countOfStudents;
-    private int number;
-    private String type;
+public class Institute {
+    private long inn;
+    private String name;
 }

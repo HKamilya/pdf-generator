@@ -15,7 +15,6 @@ import ru.kpfu.itis.converterdemo.entity.Root;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -81,7 +80,8 @@ public class ConvertingService {
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setPaddingTop(6);
             tableHead.addCell(cell);
-            cell = new PdfPCell(new Phrase(pdf.getHeader().getInstitute(), font));
+            cell = new PdfPCell(new Phrase(pdf.getHeader().getInstitute().getName() +
+                    " (ИНН: " + pdf.getHeader().getInstitute().getInn() + ")", font));
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setPaddingTop(6);
             tableHead.addCell(cell);
@@ -105,7 +105,7 @@ public class ConvertingService {
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setPaddingTop(6);
             tableHead.addCell(cell);
-            cell = new PdfPCell(new Phrase(pdf.getHeader().getNumber(), font));
+            cell = new PdfPCell(new Phrase(String.valueOf(pdf.getHeader().getNumber()), font));
             cell.setBorder(Rectangle.NO_BORDER);
             cell.setPaddingTop(6);
             tableHead.addCell(cell);
@@ -168,7 +168,6 @@ public class ConvertingService {
             cell.setPaddingBottom(15);
             table.addCell(cell);
             table.setHeaderRows(1);
-            Date date = Calendar.getInstance().getTime();
             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
 
@@ -322,7 +321,7 @@ public class ConvertingService {
         try {
             System.out.println(root);
             for (Pdf pdf : root.getPdfs()) {
-                if (pdf.getDate().before(new Date())) {
+                if (pdf.getDate().before(new Date()) & pdf.getHeader().getNumber() != 0 & pdf.getHeader().getInstitute().getInn() != 0) {
                     for (Entity entity : pdf.getEntities()) {
                         if (entity.getFormalized().before(new Date()) & entity.getComment().getDate().before(new Date())
                                 & entity.getFormed().before(new Date()) & entity.getCredited().before(new Date())) {

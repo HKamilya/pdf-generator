@@ -10,9 +10,11 @@ public class DataCreator {
     public Root generateData() {
         Header header = Header.builder()
                 .countOfStudents(65)
-                .institute("ИТИС (ИНН: 5038093740)")
+                .institute(Institute.builder().name("ИТИС")
+                        .inn(5038093740L)
+                        .build())
                 .login("Login")
-                .number("32223")
+                .number(32223)
                 .type("TT")
                 .build();
         Employee employee = Employee.builder()

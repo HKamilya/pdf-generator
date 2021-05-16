@@ -1,8 +1,6 @@
 package ru.kpfu.itis.converterdemo.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import ru.kpfu.itis.converterdemo.util.DataCreator;
 
 import java.io.FileWriter;
 import java.io.IOException;
