@@ -334,31 +334,5 @@ public class ConvertingService {
                     totalWidth, 6, 0);
         }
     }
-
-    public boolean checkValidity(Root root) {
-        try {
-            System.out.println(root);
-            for (Pdf pdf : root.getPdfs()) {
-                if (pdf.getDate().before(new Date()) & pdf.getHeader().getNumber() != 0
-                        & pdf.getHeader().getInstitute().getInn() != 0 & pdf.getHeader().getInstitute().getName().length() != 0) {
-                    for (Entity entity : pdf.getEntities()) {
-                        if (entity.getFormalized().before(new Date()) & entity.getComment().getDate().before(new Date())
-                                & entity.getFormed().before(new Date()) & entity.getCredited().before(new Date())
-                                & entity.getEmployee().getPosition().length() != 0 & entity.getEmployee().getFullname().length() != 0) {
-                            if (!entity.getIpAddress().matches("^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$")) {
-                                return false;
-                            }
-                        } else {
-                            return false;
-                        }
-                    }
-                } else {
-                    return false;
-                }
-            }
-            return true;
-        } catch (NullPointerException e) {
-            throw new NullPointerException();
-        }
-    }
+    
 }
