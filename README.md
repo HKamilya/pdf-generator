@@ -1,1 +1,1 @@
-[примеры json/xml] (https://github.com/HKamilya/pdf-generator/tree/main/examples)
+[примеры json/xml - папка "examples"](https://github.com/HKamilya/pdf-generator/tree/main/examples)
