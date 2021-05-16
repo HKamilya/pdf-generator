@@ -25,30 +25,27 @@ public class MainController {
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity post(@Valid @RequestBody Root root) throws IOException {
-        boolean valid = convertingService.checkValidity(root);
-        if (valid) {
-            String name = null;
-            File file = null;
-            InputStreamResource resource = null;
 
-            name = convertingService.createPdf(root.getPdfs());
+        String name = null;
+        File file = null;
+        InputStreamResource resource = null;
 
-            String FILE = "data/";
-            file = new File(FILE + name);
+        name = convertingService.createPdf(root.getPdfs());
+
+        String FILE = "data/";
+        file = new File(FILE + name);
 
 
-            resource = new InputStreamResource(new FileInputStream(file));
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("content-disposition", "inline;filename=" + name);
+        resource = new InputStreamResource(new FileInputStream(file));
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("content-disposition", "inline;filename=" + name);
 
-            return ResponseEntity.ok()
-                    .headers(headers)
-                    .contentLength(file.length())
-                    .contentType(MediaType.APPLICATION_PDF)
-                    .body(resource);
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(file.length())
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(resource);
 
-        } else {
-            throw new NullPointerException();
-        }
+
     }
 }

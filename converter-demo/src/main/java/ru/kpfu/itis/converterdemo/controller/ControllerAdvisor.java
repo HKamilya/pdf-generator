@@ -1,6 +1,5 @@
 package ru.kpfu.itis.converterdemo.controller;
 
-import com.itextpdf.text.DocumentException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
