@@ -338,7 +338,7 @@ public class ConvertingService {
             }
             return true;
         } catch (NullPointerException e) {
-            return false;
+            throw new NullPointerException();
         }
     }
 }

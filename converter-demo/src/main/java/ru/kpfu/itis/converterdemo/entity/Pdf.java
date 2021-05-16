@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.Valid;
+import javax.validation.constraints.PastOrPresent;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -20,8 +22,10 @@ import java.util.List;
 public class Pdf {
     private String number;
     private Header header;
+    @PastOrPresent
     private Date date;
     @XmlElementWrapper(name = "entities")
     @XmlElement(name = "entity")
+    @Valid
     private List<Entity> entities;
 }

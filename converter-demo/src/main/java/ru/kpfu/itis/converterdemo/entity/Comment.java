@@ -17,6 +17,7 @@ import java.util.Date;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Comment {
     private String comment;
+    @PastOrPresent
     private Date date;
     private String version;
 }

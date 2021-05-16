@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
+import javax.validation.Valid;
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.List;
 public class Root implements Serializable {
 
     @XmlElementWrapper(name = "pdfs")
+    @Valid
     @XmlElement(name = "pdf")
     private List<Pdf> pdfs;
 }

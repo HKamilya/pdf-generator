@@ -1,14 +1,11 @@
 package ru.kpfu.itis.converterdemo.controller;
 
 import com.itextpdf.text.DocumentException;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kpfu.itis.converterdemo.entity.Root;
 import ru.kpfu.itis.converterdemo.service.ConvertingService;
@@ -29,7 +26,7 @@ public class MainController {
 
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity post(@RequestBody Root root) {
+    public ResponseEntity post(@Valid @RequestBody Root root) throws IOException {
         boolean valid = convertingService.checkValidity(root);
         if (valid) {
             String name = null;
@@ -53,24 +50,13 @@ public class MainController {
                             .contentType(MediaType.APPLICATION_PDF)
                             .body(resource);
                 } catch (FileNotFoundException e) {
-                    return ResponseEntity
-                            .status(HttpStatus.BAD_REQUEST)
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .body("data isn't correct, please check your xml/json for mistakes");
-
+                    throw new FileNotFoundException();
                 }
             } catch (IOException | DocumentException e) {
-                return ResponseEntity
-                        .status(HttpStatus.BAD_REQUEST)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body("data isn't correct, please check your xml/json for mistakes");
-
+                throw new IOException(e);
             }
         } else {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .body("data isn't correct, please check your xml/json for mistakes in types");
+            throw new NullPointerException();
         }
     }
 }
