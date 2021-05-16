@@ -34,27 +34,17 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(FileNotFoundException.class)
+    @ExceptionHandler({IllegalStateException.class, IOException.class})
     public ResponseEntity<Object> handleFileNotFoundException(
             FileNotFoundException ex, WebRequest request) {
 
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
-        body.put("message", "data isn't correct, please check your xml/json for mistakes");
+        body.put("message", "problem with file or directory");
 
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler({IOException.class, DocumentException.class})
-    public ResponseEntity<Object> handleIOAndDocumentException(
-            FileNotFoundException ex, WebRequest request) {
-
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("message", "data isn't correct, please check your xml/json for mistakes");
-
-        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
-    }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(

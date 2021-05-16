@@ -1,9 +1,7 @@
 package ru.kpfu.itis.converterdemo.controller;
 
-import com.itextpdf.text.DocumentException;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,29 +30,23 @@ public class MainController {
             String name = null;
             File file = null;
             InputStreamResource resource = null;
-            try {
-                name = convertingService.createPdf(root.getPdfs());
 
-                String FILE = "data/";
-                file = new File(FILE + name);
+            name = convertingService.createPdf(root.getPdfs());
 
-                try {
+            String FILE = "data/";
+            file = new File(FILE + name);
 
-                    resource = new InputStreamResource(new FileInputStream(file));
-                    HttpHeaders headers = new HttpHeaders();
-                    headers.add("content-disposition", "inline;filename=" + name);
 
-                    return ResponseEntity.ok()
-                            .headers(headers)
-                            .contentLength(file.length())
-                            .contentType(MediaType.APPLICATION_PDF)
-                            .body(resource);
-                } catch (FileNotFoundException e) {
-                    throw new FileNotFoundException();
-                }
-            } catch (IOException | DocumentException e) {
-                throw new IOException(e);
-            }
+            resource = new InputStreamResource(new FileInputStream(file));
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("content-disposition", "inline;filename=" + name);
+
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .contentLength(file.length())
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .body(resource);
+
         } else {
             throw new NullPointerException();
         }
